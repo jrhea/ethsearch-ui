@@ -50,8 +50,6 @@ var HITLINK = 'url';		// Name of field to use for link
       });
     };
   })( jQuery );
-
-
   //jquery plugin for takling to solr
   (function( $ ){
     var TEMPLATES = {
@@ -61,65 +59,65 @@ var HITLINK = 'url';		// Name of field to use for link
     'chosenNavTemplate':Handlebars.compile($("#chosen-nav-template").html())
     };
     Handlebars.registerHelper('facet_displayname', function(facetname) {
-	return((FACETS_TITLES && FACETS_TITLES.hasOwnProperty(facetname)) ?
-	       FACETS_TITLES[facetname] : facetname);
-      });
+	    return((FACETS_TITLES && FACETS_TITLES.hasOwnProperty(facetname)) ? FACETS_TITLES[facetname] : facetname);
+    });
     $.fn.getSolrResults = function(q, fq, offset) {
-      var rs = this;
-      $(rs).parent().css({ opacity: 0.5 });
-      $.ajax({
-        url:SERVERROOT,
-        data: buildSearchParams(q, fq, offset), 
-        dataType: 'jsonp',
-        jsonp: 'json.wrf',
-	      success: 
-	  function(result){
-	    //only redraw hits if there are new hits available
-	    if (result.response.docs.length > 0) {
-        var hits = {};
-	      if (offset == 0) {
-          rs.empty();
-          rs.siblings().remove();
-        }
-        var hits = {};
-	      //draw the individual hits
-	      for (var i = 0; i < result.response.docs.length; i++) {
-          var title = normalize_ws(get_maybe_highlit(result, i, HITTITLE));
-          var text = normalize_ws(get_maybe_highlit(result, i, HITBODY));
-          var link = result.response.docs[i][HITLINK];
-          var hit_data = {title: title, text: text, link: link};
-          //filter duplicate titles
-          if(!hits.hasOwnProperty(text)){
-            hits[text]=hit_data;
-            rs.append(TEMPLATES.hitTemplate(hit_data));
-          }
-          
-	      }
-	      $(rs).parent().css({ opacity: 1 });
-	      //if more results to come, set up the autoload div
-	      if ((+HITSPERPAGE+offset) < +result.response.numFound) {
-		var nextDiv = document.createElement('div');
-		$(nextDiv).attr('offset', +HITSPERPAGE+offset);
-		rs.parent().append(nextDiv);
-		$(nextDiv).loadSolrResultsWhenVisible(q, fq, +HITSPERPAGE+offset);
-	      }
-	      //facets
-	      $('#solrstrap-facets').empty();
-	      //chosen facets
-	      if (fq.length > 0) {
-          var fqobjs = [];
-          for (var i = 0; i < fq.length; i++) {
-            var m = fq[i].match(/^([^:]+):(.*)/);
-            if (m) {
-              fqobjs.push({'name': m[1], 'value': m[2]});
+      if (typeof q !== 'undefined') {
+        var rs = this;
+        $(rs).parent().css({ opacity: 0.5 });
+        $.ajax({
+          url:SERVERROOT,
+          data: buildSearchParams(q, fq, offset), 
+          dataType: 'jsonp',
+          jsonp: 'json.wrf',
+          success: function(result){
+            //only redraw hits if there are new hits available
+            if (result.response.docs.length > 0) {
+              var hits = {};
+              if (offset == 0) {
+                rs.empty();
+                rs.siblings().remove();
+              }
+              var hits = {};
+              //draw the individual hits
+              for (var i = 0; i < result.response.docs.length; i++) {
+                var title = normalize_ws(get_maybe_highlit(result, i, HITTITLE));
+                var text = normalize_ws(get_maybe_highlit(result, i, HITBODY));
+                var link = result.response.docs[i][HITLINK];
+                var hit_data = {title: title, text: text, link: link};
+                //filter duplicate titles
+                if(!hits.hasOwnProperty(text)){
+                  hits[text]=hit_data;
+                  rs.append(TEMPLATES.hitTemplate(hit_data));
+                }
+              }
+              $(rs).parent().css({ opacity: 1 });
+              //if more results to come, set up the autoload div
+              if ((+HITSPERPAGE+offset) < +result.response.numFound) {
+                var nextDiv = document.createElement('div');
+                $(nextDiv).attr('offset', +HITSPERPAGE+offset);
+                rs.parent().append(nextDiv);
+                $(nextDiv).loadSolrResultsWhenVisible(q, fq, +HITSPERPAGE+offset);
+              }
+              //facets
+              $('#solrstrap-facets').empty();
+              //chosen facets
+              if (fq.length > 0) {
+                var fqobjs = [];
+                for (var i = 0; i < fq.length; i++) {
+                  var m = fq[i].match(/^([^:]+):(.*)/);
+                  if (m) {
+                    fqobjs.push({'name': m[1], 'value': m[2]});
+                  }
+                }
+                $('#solrstrap-facets').append(TEMPLATES.chosenNavTemplate(fqobjs));
+              }
+              $('div.facet > a').click(add_nav);
+              $('div.chosen-facet > a').click(del_nav);
             }
           }
-          $('#solrstrap-facets').append(TEMPLATES.chosenNavTemplate(fqobjs));
-	      }
-	      $('div.facet > a').click(add_nav);
-	      $('div.chosen-facet > a').click(del_nav);
-	    }
-	  }});
+        });
+      }
     };
   })( jQuery );
 
