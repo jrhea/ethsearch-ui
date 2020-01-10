@@ -7,3 +7,8 @@ html { overflow-y: scroll; } /*force scrollbar*/
 }
 .nav-title{text-transform:uppercase;font-weight:bold}
 .entry { margin-bottom: 10px; }
+input[type='text'],
+input[type='number'],
+input {
+font-size: 16px !important;
+}
