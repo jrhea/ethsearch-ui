@@ -1,88 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>ethsearch</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width">
-    <!-- Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/solrstrap.css" rel="stylesheet" media="screen">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link href="css/styles.css" rel="stylesheet" media="screen">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   </head>
-  <body screen_capture_injected="true">
 
-    <!--actual visible HTML-->
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="#">ethsearch</a>
-          <form class="navbar-search" style="float:right">
-            <div id="search-div">
-              <input type="text" class="search-query span8" placeholder="Search for something Ethereum related..." onfocus="this.value = this.value;" id="solrstrap-searchbox" name="q">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div id="solrstrap-facets" class="span4"></div>
-        <div id="solrstrap-hits" class="span8"></div>
-      </div>
-    </div>
-    <div class="navbar navbar-fixed-bottom">
-        <div class="navbar-inner">
-          <div class="container">
-            <a class="brand" href="https://etherscan.io/address/0xD44AcD5A54F8D802A289c4C346D93F79177343cA">Donate: 0xD44AcD5A54F8D802A289c4C346D93F79177343c</a>
+  <body id="page-top" screen_capture_injected="true">
+    <div class="container-fluid">
+      <div class="form-row justify-content-center">
+        <div id="search-div" class="input-group my-3 w-100" style="max-width: 800px;">
+          <input type="text" class="form-control" placeholder="Ethsear.ch" onfocus="this.value = this.value;" id="solrstrap-searchbox" name="q">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">Search</button>
           </div>
         </div>
-    </div>
-    <!--Handlebars layout templates-->
-    <script type="text/x-handlebars-template" id="hit-template">
-    <div class="entry">
-    {{#if link}}
-    <a href="{{link}}" target="_blank">{{{title}}}</a><br>
-    {{{text}}}
-    {{else}}
-    <strong>{{{title}}}</strong><br>
-    {{{text}}}
-    {{/if}}
-    </div>
-    </script>
-    <script type="text/x-handlebars-template" id="result-summary-template">
-    <div id="result-summary">
-    {{totalresults}} results for <strong><i>{{query}}</i></strong>
-    </div>
-    </script>
-    <script type="text/x-handlebars-template" id="nav-template">
-    <div class="facet">
-    <span class="nav-title" data-facetname="{{title}}">{{facet_displayname title}}</span><br>
-    {{#each navs}}
-    <a href='#' title='{{@key}} ({{this}})'>{{@key}}</a> ({{this}})<br/>
-    {{/each}}
-    </div>
-    </script>
-    <script type="text/x-handlebars-template" id="chosen-nav-template">
-    <div class="chosen-facet">
-    <span class="nav-title">Filters</span><br>
-    {{#each this}}
-    <a class="close" href="#">&times;</a>
-    <a href='#' class="selectedNav" 
-       data-filter="{{name}}:{{value}}"
-       title="{{facet_displayname name}}:{{value}}">{{facet_displayname name}}:{{value}}</a><br>
-    {{/each}}
-    </div>
-    </script>
+      </div>
+      <div id="solrstrap-facets" ></div>
+      <div class="container-fluid" id="solrstrap-hits"></div>
 
-    <!--load scripts at the bottom-->
+      <nav class="navbar fixed-bottom navbar-light bg-light shadow-sm">
+        <div class="container justify-content-center">
+          <a href="https://gitcoin.co/grants/240/ethsearch">
+            <img src="img/gitcoin.svg" style="height: 50px;" alt="Kiwi standing on oval">
+          </a>
+        </div>
+      </nav>
+    </div>
+
+        <!--Handlebars layout templates-->
+    <script type="text/x-handlebars-template" id="hit-template">
+      <div class="row justify-content-center">
+        <div class="card w-100 mb-2 shadow-sm" style="max-width: 800px;">
+          <div class="card-body">
+            <div class="entry">
+              {{#if link}}
+              <a href="{{link}}" target="_blank">{{{title}}}</a><br>
+              {{{text}}}
+              {{else}}
+              <strong>{{{title}}}</strong><br>
+              {{{text}}}
+              {{/if}}
+              </div>
+          </div>
+        </div>
+      </div>
+    </script>
+          <script type="text/x-handlebars-template" id="result-summary-template">
+          <div id="result-summary">
+          {{totalresults}} results for <strong><i>{{query}}</i></strong>
+          </div>
+          </script>
+          <script type="text/x-handlebars-template" id="nav-template">
+          <div class="facet">
+          <span class="nav-title" data-facetname="{{title}}">{{facet_displayname title}}</span><br>
+          {{#each navs}}
+          <a href='#' title='{{@key}} ({{this}})'>{{@key}}</a> ({{this}})<br/>
+          {{/each}}
+          </div>
+          </script>
+          <script type="text/x-handlebars-template" id="chosen-nav-template">
+          <div class="chosen-facet">
+          <span class="nav-title">Filters</span><br>
+          {{#each this}}
+          <a class="close" href="#">&times;</a>
+          <a href='#' class="selectedNav" 
+             data-filter="{{name}}:{{value}}"
+             title="{{facet_displayname name}}:{{value}}">{{facet_displayname name}}:{{value}}</a><br>
+          {{/each}}
+          </div>
+    </script>
+      
+          <!--load scripts at the bottom-->
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <!-- Outdated scripts required for solrstrap to work -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ba-bbq/1.2.1/jquery.ba-bbq.min.js"></script>
-
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
     <script type='text/javascript' src="js/solrstrap.js"></script>
 

@@ -1,0 +1,22 @@
+html {
+    height: 100%;
+}
+body {
+    background-color: #eeeeee !important;
+    min-height: 100%
+} 
+.fill-height {
+    min-height: 100%;
+    height:auto !important; /* cross-browser */
+    height: 100%; /* cross-browser */
+}
+
+.form-control:focus {
+    border-color: none !important;
+    box-shadow: none !important;
+}
+
+.btn:focus {
+    border-color: none !important;
+    box-shadow: none !important;
+} 
