@@ -1,0 +1,3 @@
+[submodule "solr-js"]
+	path = solr-js
+	url = git@github.com:ethsearch/solr-js.git

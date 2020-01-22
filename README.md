@@ -6,6 +6,20 @@ Goals:
 - make ethereum content more accessible via search
 - autonomous control/maintenance?
 
+### Running a dev environment
 
+```
+npm install
+git submodule update --init --recursive
+npm run dev
+```
 
-> Note: UI borrowed from: https://github.com/fergiemcdowall/solrstrap
+### Building for prod
+
+```
+npm install
+git submodule update --init --recursive
+npm run build
+```
+
+Build files will be in the `dist` folder

@@ -1,0 +1,11 @@
+.card{
+    max-width: 800px;
+}
+
+#title{
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+ }
