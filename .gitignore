@@ -2,3 +2,5 @@
 node_modules
 solr-js
 dist/*
+index.html
+main.js
