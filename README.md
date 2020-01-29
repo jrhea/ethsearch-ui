@@ -2,24 +2,16 @@
 
 **⚠️ This is a work in progress! ⚠️**
 
-Goals:
-- make ethereum content more accessible via search
-- autonomous control/maintenance?
-
 ### Running a dev environment
 
 ```
-npm install
-git submodule update --init --recursive
-npm run dev
+make dev
 ```
 
 ### Building for prod
 
 ```
-npm install
-git submodule update --init --recursive
-npm run build
+make prod
 ```
 
-Build files will be in the `dist` folder
+> Note: Build files will be in the `dist` folder
