@@ -35,16 +35,18 @@ class SearchInput extends React.Component {
 
   render() {
     return (
-        <div className="form-row justify-content-center">
-            <div id="search-div" className="input-group my-3 w-100">
-                <input id='search-input' value={this.state.search} type="text" className="form-control" placeholder="Ethsear.ch" onChange={this.handleChange} onKeyDown={this.onEnter} />
-                <div className="input-group-append">
-                    <button className="btn btn-primary" type="button" onClick={this.onSearch.bind()}>
-                      {'Search'}
+      <div className="d-flex flex-grow-1">
+        <div className="justify-content-center mr-2 my-auto w-100 d-inline-block order-0">
+            <div id="search-div" className="input-group">
+                <input id='search-input' className="form-control border border-right-0" value={this.state.search} type="text" placeholder="ethsear.ch" onChange={this.handleChange} onKeyDown={this.onEnter} />
+                <span className="input-group-append">
+                    <button className="btn btn-outline-light border border-left-0" type="button" onClick={this.onSearch.bind()}>
+                      <i className="fa fa-search"></i>
                     </button>
-                </div>
+                </span>
             </div>
         </div>
+      </div>
     );
   }
 }
