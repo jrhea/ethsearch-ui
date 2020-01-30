@@ -9,7 +9,7 @@ update:
 dev: clean init
 	npm run dev
 
-prod: clean init
+prod: clean init update
 	npm run build
 	ln -s dist/index.html index.html
 	ln -s dist/main.js main.js
