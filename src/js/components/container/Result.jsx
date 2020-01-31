@@ -32,7 +32,7 @@ static getDerivedStateFromProps(nextProps, prevState){
 
   render() {
     return (
-      <div className="row justify-content-center">
+      <div id='results' className="row justify-content-center nopadding">
         <div className="card w-100 mb-2 shadow-sm">
           <div className="card-body">
             <div id='title' className="entry">
