@@ -100,7 +100,7 @@ class App extends React.Component{
   render() {
     return (
       <div className="App">
-        <nav className="navbar navbar-expand-md navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
             {/* <a href="/" className="navbar-brand">ethsearch</a> */}
             <SearchInput value={this.state.urlParam} parentCallback = {this.updateURLParams}/>
             <div className="navbar-collapse collapse flex-shrink-1 flex-grow-0 order-last" id="navbar7">
