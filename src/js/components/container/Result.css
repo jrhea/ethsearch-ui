@@ -2,10 +2,15 @@
     max-width: 800px;
 }
 
+#results{
+    max-width: 96%;
+    padding-left: 4% !important;
+}
+
 #title{
 }
 
 .nopadding {
-    padding: 0 !important;
-    margin: 0 !important;
+    padding: 0px !important;
+    margin: 0px !important;
  }
